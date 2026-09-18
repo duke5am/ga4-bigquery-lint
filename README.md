@@ -71,4 +71,4 @@ construction, reconciling against the UI), `COST-CONTROL.md`, `VALIDATION.md` (h
 to prove a query is right before trusting it), the materialised session-table
 setup, and a schema audit that checks **244 documented field paths**.
 
-→ **GA4 BigQuery Session & Funnel SQL Pack**: <!-- GUMROAD-LINK -->
+→ More developer tooling like this: **[duke5am.gumroad.com](https://duke5am.gumroad.com)** <!-- GUMROAD-LINK -->
