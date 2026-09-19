@@ -71,4 +71,19 @@ construction, reconciling against the UI), `COST-CONTROL.md`, `VALIDATION.md` (h
 to prove a query is right before trusting it), the materialised session-table
 setup, and a schema audit that checks **244 documented field paths**.
 
+<!-- RELATED:START -->
+
+## Related tools
+
+- **[bank-csv-reconcile](https://github.com/duke5am/bank-csv-reconcile)** — Turn a bank CSV or Excel export into one clean table and reconcile the running balance, so a dropped row shows up instead of silently changing totals.
+  *(if you were searching for "bank statement csv to excel")*
+- **[cur-athena-lint](https://github.com/duke5am/cur-athena-lint)** — Lint AWS Cost and Usage Report Athena SQL for partition pruning and column mistakes, with the schema reference and a FinOps playbook.
+  *(if you were searching for "aws cur athena query")*
+
+All 28 tools in this set, grouped by what they check: **[dev-tools-index](https://duke5am.github.io/dev-tools-index/)**
+
+If you arrived here searching for one of these, this is the tool: **ga4 bigquery queries** · **sessionisation 30 minute rule** · **ga4 event_params unnest** · **bigquery cost control query**
+
+<!-- RELATED:END -->
+
 → More developer tooling like this: **[duke5am.gumroad.com](https://duke5am.gumroad.com)** <!-- GUMROAD-LINK -->
