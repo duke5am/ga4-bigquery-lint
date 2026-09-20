@@ -1,0 +1,8 @@
+# The eleven bundled queries are runtime data: the linter's default target is
+# the directory that holds them, so they MUST ship in the wheel. Without this
+# file (and include-package-data = true in pyproject.toml) setuptools silently
+# drops them from the wheel and the installed tool has nothing to lint.
+recursive-include ga4_bigquery_lint/queries *.sql
+include README.md
+include SCHEMA-TRAPS.md
+include LICENSE

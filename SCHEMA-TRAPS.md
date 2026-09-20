@@ -111,7 +111,7 @@ CONCAT(user_pseudo_id, '.', CAST(ga_session_id AS STRING)) AS session_key
 ```
 
 and group by that, or group by `(user_pseudo_id, ga_session_id)` explicitly.
-`queries/01-SESSIONISE-EVENTS.sql` and `setup/create_session_table.sql` both
+`ga4_bigquery_lint/queries/01-SESSIONISE-EVENTS.sql` and `setup/create_session_table.sql` both
 build this key once so nothing downstream can forget it. `docs/SESSIONISATION.md`
 covers the 30-minute rule, midnight crossing and how to sanity-check the result.
 
@@ -165,7 +165,7 @@ BETWEEN '20240114' AND '20240116'`, then filter to sessions whose start date is
 the day you care about. Scanning only `20240115` makes the split unavoidable --
 there is no query shape that fixes a session whose other half you did not read.
 
-**How big should the gap be?** `queries/10-MIDNIGHT-CROSSING.sql` measures it on
+**How big should the gap be?** `ga4_bigquery_lint/queries/10-MIDNIGHT-CROSSING.sql` measures it on
 your data and returns the exact number of sessions a naive per-day grouping
 would invent. That converts "my SQL is wrong somewhere" into "my SQL is wrong by
 exactly 412 sessions, for this mechanical reason". Run it before you start
@@ -301,7 +301,7 @@ WHERE _TABLE_SUFFIX = '20240115' AND event_name = 'session_start';
 
 Without the `key` filter this returns every parameter of every event -- useful
 for "what does this event actually carry?", useless as a basis for any count.
-`queries/00-PARAM-PATTERNS.sql` sets out all the patterns with their trade-offs.
+`ga4_bigquery_lint/queries/00-PARAM-PATTERNS.sql` sets out all the patterns with their trade-offs.
 
 **Sanity check that catches this class of bug in one line.** If
 `COUNT(*)` from your events table is not close to the number of events the UI
@@ -512,7 +512,7 @@ of these are defensible and they give different answers:
 - **Collected (event-scoped):** `collected_traffic_source.*`. What the tag
   actually saw on that hit, before any modelling.
 
-`queries/05-CONVERSIONS-BY-CHANNEL.sql` lets you switch between them with a
+`ga4_bigquery_lint/queries/05-CONVERSIONS-BY-CHANNEL.sql` lets you switch between them with a
 change to one `COALESCE`. Pick one, **label the report with which one it is**, and
 never mix them in a single table.
 
@@ -520,7 +520,7 @@ never mix them in a single table.
 export is a good approximation, not a replica. If a report must tie out exactly
 to the UI's channel names, export it from the UI. Use SQL when you need channels
 *joined* to things the UI cannot join to -- your own user table, your CRM, a
-custom conversion definition. `queries/08-CHANNEL-GROUPING.sql` implements the
+custom conversion definition. `ga4_bigquery_lint/queries/08-CHANNEL-GROUPING.sql` implements the
 mapping and returns a `unmatched_or_other_pct` health metric; when that number
 climbs, your tagging changed, not your query.
 

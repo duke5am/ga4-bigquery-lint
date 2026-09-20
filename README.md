@@ -1,21 +1,44 @@
 # ga4-bigquery-lint
 
+[![PyPI](https://img.shields.io/pypi/v/ga4-bigquery-lint)](https://pypi.org/project/ga4-bigquery-lint/)
+
 Lint GA4 BigQuery SQL for the mistakes that make queries **fail, double-count or
 silently disagree with the GA4 UI** — without a GCP account. Uses a real BigQuery
 grammar, not a regex.
 
 ```bash
+pip install ga4-bigquery-lint     # from PyPI, Python 3.9+
+ga4-bigquery-lint                 # lint the SQL that ships with it
+ga4-bigquery-lint my-query.sql    # lint your own file
+ga4-bigquery-lint ./my-sql-dir    # or a whole directory of .sql files
+```
+
+The eleven bundled queries ship **inside the package**, so the installed tool
+lints them with no checkout and no extra download.
+
+Or from a clone — the same code either way:
+
+```bash
+git clone https://github.com/duke5am/ga4-bigquery-lint
+cd ga4-bigquery-lint
 python3 verify_pack.py              # lint the bundled queries
 python3 verify_pack.py my-query.sql # lint your own
+python3 verify_pack.py .            # also grammar-checks the SQL in the docs
 ```
 
 ```
-files checked      : 12 .sql
-statements parsed  : 19 / 19
-md sql blocks      : 6 complete parsed, 9 fragments skipped, 0 failed
+files checked      : 11 .sql
+statements parsed  : 16 / 16
+md sql blocks      : 0 complete parsed, 0 fragments skipped, 0 failed
 errors             : 0
 warnings           : 0
 ```
+
+Exit codes: `0` no errors · `1` at least one error found · `2` nothing to check
+(a missing path, or a directory with no `.sql` in it) · `3` internal failure.
+
+The machine-readable report is written to `verification-report.json` in the
+current directory.
 
 ## Why GA4 SQL goes wrong
 
